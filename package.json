@@ -1,0 +1,19 @@
+{
+  "name": "backend-rest-api-tshirts-store",
+  "version": "1.0.0",
+  "description": "REST API for T-shirt online store",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PavelAbadon/BackEnd-REST-API-Tshits-Store.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
