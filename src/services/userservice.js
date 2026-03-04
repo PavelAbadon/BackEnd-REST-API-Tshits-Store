@@ -1,10 +1,19 @@
 import User from "../models/User.js";
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+
+import { generateAuthToken } from "../utils/tokenUtils.js";
 
 
 export async function register(username, email, password) {
-    return User.create({username, email, password});
+    const user = await User.create({username, email, password});
+    const token = generateAuthToken(user);
+
+    return {
+        _id: user.id,
+        email: user.email,
+        username: user.username,
+        accessToken: token
+    };
 }
 
 export async function login(username, password) {
@@ -20,13 +29,7 @@ export async function login(username, password) {
         throw new Error('The password is incorrect.');
     }
 
-    const payload = {
-        id: user.id,
-        email: user.email,
-        username: user.username
-    };
-
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });
+    const token = generateAuthToken(user);
 
     return {
         _id: user.id,
