@@ -5,7 +5,19 @@ import { generateAuthToken } from "../utils/tokenUtils.js";
 
 
 export async function register(username, email, password) {
+    const existingUser = await User.findOne({
+        $or: [
+            { username },
+            { email }
+        ]
+    });
+
+    if (existingUser) {
+        throw new Error('Username or email already exists');
+    }
+
     const user = await User.create({username, email, password});
+
     const token = generateAuthToken(user);
 
     return {
