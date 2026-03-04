@@ -10,6 +10,19 @@ userController.post('/register', async (req, res) =>{
     const result = await userService.register(username, email, password);
 
     res.status(201).end();
+});
+
+//Login
+userController.post('/login', async (req, res) =>{
+    const {username, password} = req.body;
+    
+
+    try {
+        const result = await userService.login(username, password);
+        res.status(201).json(result)
+    } catch (err) {
+        res.status(401).json({ message: err.message })
+    }
 })
 
 
