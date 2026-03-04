@@ -9,7 +9,7 @@ const app = express();
 // Setup mongoose
 try {
     await mongoose.connect('mongodb://localhost:27017', {
-        dbName: 'T-shit online store march 2026',
+        dbName: 'T-shit-online-store-march-2026',
     });
 
     console.log('Successfully connected to DB!');
@@ -19,7 +19,7 @@ try {
 }
 
 //Add CORS
-app.use(cors);
+app.use(cors());
 
 // Add json parser
 app.use(express.json());
@@ -28,4 +28,4 @@ app.use(express.json());
 app.use(routes);
 
 
-app.listen(3030, () => 'Server is listening on http://localhost:3030...');
+app.listen(3030, () => { console.log('Server is listening on http://localhost:3030...');});
