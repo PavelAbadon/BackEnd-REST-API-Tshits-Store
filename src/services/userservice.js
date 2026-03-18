@@ -24,7 +24,8 @@ export async function register(username, email, password) {
         _id: user.id,
         email: user.email,
         username: user.username,
-        accessToken: token
+        accessToken: token, 
+        role: user.role
     };
 }
 
@@ -47,7 +48,8 @@ export async function login(username, password) {
         _id: user.id,
         email: user.email,
         username: user.username,
-        accessToken: token
+        accessToken: token, 
+        role: user.role
     };
 }
 
