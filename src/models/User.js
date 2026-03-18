@@ -16,6 +16,11 @@ const userSchema = new Schema ({
         required: [true, 'User password is required!'],
         minLength: [6, 'Password too short']
     },
+    role: { 
+        type: String, 
+        enum: ['customer', 'admin'], 
+        default: 'customer' 
+    },
 });
 
 userSchema.pre('save', async function() {
