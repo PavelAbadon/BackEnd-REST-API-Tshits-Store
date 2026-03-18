@@ -11,3 +11,10 @@ export function getAllTshirts (tshirtData){
     const tshirts = Tshirt.find(tshirtData);
     return tshirts;
 }
+
+//GetOne Tshirt
+export function getOne (tshirtId){
+    
+    const tshirt = Tshirt.findById(tshirtId);
+    return tshirt;
+}
