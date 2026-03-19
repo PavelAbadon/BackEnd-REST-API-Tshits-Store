@@ -31,6 +31,18 @@ tshirtController.put('/:tshirtId', requireAuth, isAdmin, async(req, res) =>{
     } catch (err) {
         res.status(403).json({ error: err.message });
     }
+});
+
+// delete Tshirt for Admin
+tshirtController.delete('/:tshirtId', requireAuth, isAdmin, async(req, res) =>{
+    const tshirtId = req.params.id;
+
+    try {
+        const tshirt = await tshirtService.deleteTshirt(tshirtId);
+        res.status(204).json(tshirt);
+    } catch (err) {
+        res.status(403).json({ error: err.message });
+    }
 })
 
 //Get All for EveryOne

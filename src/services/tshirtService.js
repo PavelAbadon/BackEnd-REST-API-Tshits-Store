@@ -19,7 +19,14 @@ export function getOne (tshirtId){
     return tshirt;
 }
 
-export function editTshirt(tshirtId){
-    const tshirt = Tshirt.findByIdAndUpdate(tshirtId);
+// Edit Tshirt
+export function editTshirt(tshirtId, tshirtData){
+    const tshirt = Tshirt.findByIdAndUpdate(tshirtId, tshirtData, {runValidators:true});
+    return tshirt;
+}
+
+// Delete Tshirt
+export function deleteTshirt(tshirtId){
+    const tshirt = Tshirt.findByIdAndDelete(tshirtId);
     return tshirt;
 }
