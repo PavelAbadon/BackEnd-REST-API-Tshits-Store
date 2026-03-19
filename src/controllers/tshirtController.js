@@ -6,17 +6,35 @@ import { isAdmin } from "../middlewares/isAdmin.js";
 
 const tshirtController = Router();
 
-// Create T-shirt
+// Create T-shirt for ADMIN
 tshirtController.post('/', requireAuth, isAdmin, async(req, res) =>{
-    //ТУК ЩЕ ТРЯБВА ДА ИМА try/catch
     const tshirtData = req.body;
-    const tshirt = await tshirtService.createTshirt(tshirtData);
 
-    res.status(201).json(tshirt);
+    try {
+        const tshirt = await tshirtService.createTshirt(tshirtData);
+        res.status(201).json(tshirt);
+        
+    } catch (err) {
+        res.status(403).json({ error: err.message });
+    }
+    
 });
 
-//Get All
-tshirtController.get('/', requireAuth, isAdmin, async (req, res) => {
+//Edit Tshirt for Admin
+tshirtController.put('/:tshirtId', requireAuth, isAdmin, async(req, res) =>{
+    const tshirtId = req.params.id;
+    const tshirtData = req.body;
+
+    try {
+        const tshirt = await tshirtService.editTshirt(tshirtId, tshirtData);
+        res.status(204).json(tshirt);
+    } catch (err) {
+        res.status(403).json({ error: err.message });
+    }
+})
+
+//Get All for EveryOne
+tshirtController.get('/', async (req, res) => {
     try {
         const tshirts = await tshirtService.getAllTshirts();
         res.json(tshirts);
@@ -25,8 +43,8 @@ tshirtController.get('/', requireAuth, isAdmin, async (req, res) => {
     }
 });
 
-//Get One
-tshirtController.get('/:tshirtId', requireAuth, isAdmin, async (req, res) =>{
+//Get One for everyOne
+tshirtController.get('/:tshirtId', async (req, res) =>{
     const tshirtId = req.params.id;
     
     try {
@@ -36,6 +54,7 @@ tshirtController.get('/:tshirtId', requireAuth, isAdmin, async (req, res) =>{
         res.status(400).json({ error: err.message });
     }
 
-})
+});
+
 
 export default tshirtController;

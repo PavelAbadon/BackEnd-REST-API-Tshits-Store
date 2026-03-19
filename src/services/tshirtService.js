@@ -18,3 +18,8 @@ export function getOne (tshirtId){
     const tshirt = Tshirt.findById(tshirtId);
     return tshirt;
 }
+
+export function editTshirt(tshirtId){
+    const tshirt = Tshirt.findByIdAndUpdate(tshirtId);
+    return tshirt;
+}
