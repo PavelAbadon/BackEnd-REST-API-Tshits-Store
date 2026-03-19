@@ -2,6 +2,7 @@ import { Router } from "express";
 import { tshirtService } from "../services/index.js";
 import { requireAuth } from "../middlewares/requireAuth.js";
 import { isAdmin } from "../middlewares/isAdmin.js";
+import { getErrorMessage } from "../utils/errorUtils.js";
 
 
 const tshirtController = Router();
@@ -15,7 +16,7 @@ tshirtController.post('/', requireAuth, isAdmin, async(req, res) =>{
         res.status(201).json(tshirt);
         
     } catch (err) {
-        res.status(403).json({ error: err.message });
+        res.status(403).json({ error: getErrorMessage(err) });
     }
     
 });
@@ -29,7 +30,7 @@ tshirtController.put('/:tshirtId', requireAuth, isAdmin, async(req, res) =>{
         const tshirt = await tshirtService.editTshirt(tshirtId, tshirtData);
         res.status(204).json(tshirt);
     } catch (err) {
-        res.status(403).json({ error: err.message });
+        res.status(403).json({ error: getErrorMessage(err) });
     }
 });
 
@@ -41,7 +42,7 @@ tshirtController.delete('/:tshirtId', requireAuth, isAdmin, async(req, res) =>{
         const tshirt = await tshirtService.deleteTshirt(tshirtId);
         res.status(204).json(tshirt);
     } catch (err) {
-        res.status(403).json({ error: err.message });
+        res.status(403).json({ error: getErrorMessage(err) });
     }
 })
 
@@ -51,7 +52,7 @@ tshirtController.get('/', async (req, res) => {
         const tshirts = await tshirtService.getAllTshirts();
         res.json(tshirts);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(400).json({ error: getErrorMessage(err) });
     }
 });
 
@@ -63,7 +64,7 @@ tshirtController.get('/:tshirtId', async (req, res) =>{
         const tshirt =  await tshirtService.getOne(tshirtId);
         res.json(tshirt);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(400).json({ error: getErrorMessage(err) });
     }
 
 });
